@@ -23,38 +23,68 @@ STAT430 Homework #3: Due Friday, February 15, 2019.
 ```{r 1}
 set.seed(4302019)
 nVec <- c(3,9,27,81)
-sampVec <- rep(NA,10000)
+sampVec <- matrix(nrow=4,ncol = 10000)
 
 # for n = 3
 for(i in seq(1,10000,1)){
-samp <- rchisq(3,1,1)
-sampVec[i] <- mean(samp)
+samp <- rchisq(3,2)
+sampVec[1,i] <- mean(samp)
 }
-hist(sampVec)
 
 # for n = 9
 for(i in seq(1,10000,1)){
-samp <- rchisq(9,1,1)
-sampVec[i] <- mean(samp)
+samp <- rchisq(9,8)
+sampVec[2,i] <- mean(samp)
 }
-hist(sampVec)
 
 # for n = 27
 for(i in seq(1,10000,1)){
-samp <- rchisq(27,1,1)
-sampVec[i] <- mean(samp)
+samp <- rchisq(27,26)
+sampVec[3,i] <- mean(samp)
 }
-hist(sampVec)
 
 # for n = 81
 for(i in seq(1,10000,1)){
-samp <- rchisq(81,1,1)
-sampVec[i] <- mean(samp)
+samp <- rchisq(81,81)
+sampVec[4,i] <- mean(samp)
 }
-hist(sampVec)
 
-# make matrix of smaplevectors?? for each n = size?
-# then compare all graphs? w/ emperical
+{
+par(mfrow=c(2,2))
+plot(ecdf(sampVec[1,]))
+  plot(ecdf(sampVec[2,]))
+  plot(ecdf(sampVec[3,]))
+  plot(ecdf(sampVec[4,]))
+}
+
+
+# ploting normal over cdfs
+Xgrid1 <- seq(to = 0, from = max(sampVec[1,]), length = 10000)
+Xgrid2 <- seq(to = 0, from = max(sampVec[2,]), length = 10000)
+Xgrid3 <- seq(to = 0, from = max(sampVec[3,]), length = 10000)
+Xgrid4 <- seq(to = 0, from = max(sampVec[4,]), length = 10000)
+
+par(mfrow=c(2,2))
+
+{
+plot(ecdf(sampVec[1,]))
+lines(Xgrid1,pnorm(Xgrid1,3,sqrt(2*3)),lwd=1,col='green')
+}
+
+{
+plot(ecdf(sampVec[2,]))
+lines(Xgrid2,pnorm(Xgrid1,9,sqrt(2*9)),lwd=1,col='green')
+}
+
+{
+plot(ecdf(sampVec[3,]))
+lines(Xgrid3,pnorm(Xgrid1,27,sqrt(2*27)),lwd=1,col='green')
+}
+
+{
+plot(ecdf(sampVec[4,]))
+lines(Xgrid4,pnorm(Xgrid1,81,sqrt(2*81)),lwd=1,col='green')
+}
 ```
 
 *********************************************************************************
@@ -64,31 +94,34 @@ hist(sampVec)
 *********************************************************************************
 
 **Answer:**
+
+LATEXXXXXXXX (2)
+
 ```{r 2}
-p <- (29/50)
+p <- .52
+q <- (1-p)
 n <- 50
 # mean of binomial distribution:
 mu <- p*n
+v <- p*n*q
 
-### P(Y >= 20)
-1 - pbinom(20,n,p)
-# or
-pbinom(20,n,p,lower.tail = F)
+### P(Y >= 29)
+1 - pbinom(28,n,p,lower.tail =T)
+
+
+z <- (28.5 - mu)/(sqrt(v))
+pnorm(z, 0, 1, lower.tail = F)
 ```
 
 *********************************************************************************
-
 
 3. Let $Y_1\sim N(1, 1)$, $Y_2\sim N(2, 4)$, and $Y_3\sim N(3, 9)$ be independent random variables.  Use these random variables to construct (a) a $\chi^2$ random variable with 3 degrees of freedom (df); (b) a $t$ random variable with 2 df; (c) an $F$ random variable with 1 numerator df and 2 denominator df; (d) an $F$ random variable with 2 numerator and 1 denominator df. 
 
 *********************************************************************************
 
 **Answer:**
-```{r 3}
 
-
-```
-
+LATEEXXXXX BABBBBYYYYYYYY
 
 *********************************************************************************
 
@@ -104,7 +137,30 @@ Then check your answers via simulation as follows:
 *********************************************************************************
 
 **Answer:**
+```{r 4}
+set.seed(4302019)
 
+# part (a)
+pf(2,5,9, lower.tail = F)
+
+# part (b)
+pf(.5,5,9)
+
+# part (c)
+pf(2,5,9,lower.tail = F) + pf(.5,5,9)
+
+# part (d)
+m <- rf(10000,5,9)
+length(which(m > 2))/10000
+
+# part (e)
+m <- rf(10000,5,9)
+length(which(m < .5))/10000
+
+# part (f)
+mk <- rf(10000,5,9)
+length(which(mk < .5 | mk > 2))/10000
+```
 
 
 *********************************************************************************
@@ -113,7 +169,13 @@ Then check your answers via simulation as follows:
 
 *********************************************************************************
 
+
 **Answer:**
+
+```{r 5}
+pbinom(10,35,.23,lower.tail=F)
+1 - pnorm(.9841,0,1)
+```
 
 
 *********************************************************************************
@@ -133,6 +195,9 @@ Then check your answers via simulation as follows:
 
 **Answer:**
 
+```{r 7}
+1 - pnorm(2.4,2.5,.2)
+```
 
 *********************************************************************************
 
@@ -142,5 +207,9 @@ Then check your answers via simulation as follows:
 
 **Answer:**
 
+For probability .1
+```{r 8}
+qnorm(.1,0,1)
+```
 
 *********************************************************************************
