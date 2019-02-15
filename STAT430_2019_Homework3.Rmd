@@ -95,20 +95,18 @@ lines(Xgrid4,pnorm(Xgrid1,81,sqrt(2*81)),lwd=1,col='green')
 
 **Answer:**
 
-LATEXXXXXXXX (2)
-
 ```{r 2}
 p <- .52
 q <- (1-p)
 n <- 50
-# mean of binomial distribution:
+# mean & varience of binomial distribution:
 mu <- p*n
 v <- p*n*q
 
-### P(Y >= 29)
+# P(Y >= 29)
 1 - pbinom(28,n,p,lower.tail =T)
 
-
+# Continuity corection
 z <- (28.5 - mu)/(sqrt(v))
 pnorm(z, 0, 1, lower.tail = F)
 ```
@@ -121,7 +119,22 @@ pnorm(z, 0, 1, lower.tail = F)
 
 **Answer:**
 
-LATEEXXXXX BABBBBYYYYYYYY
+Let $Z_{1}=\frac{Y_{1}-1}{1}$, $Z_{2}=\frac{Y_{2}-2}{2}$, & $Z_{3}=\frac{Y_{3}-3}{3}$
+So, $Z_{1}, Z_{2}, Z_{3} \sim N(0,1)$ and iid
+## part (a)
+Let $w = (Z_{1}^2 + Z_{2}^2 + Z_{3}^2) \sim X^2_{3}$
+
+## part (b)
+let $k = Z_{1}^2 + Z_{2}^2 \sim X^2_{2}$
+Now our t distribution is: $\frac{Z_{3}}{\sqrt{k/2}} \sim t_{2}$\
+
+## part (c)
+let $k_{1} = Z^2_{1}$ & $k_{2} = Z^2_{2} + Z^2_{3}$
+then $F_{1,2} = \frac{k_{1}/1}{k_{2}/2} \sim F_{1,2}$
+
+## part (d)
+let $k_{2} = Z^2_{2} + Z^2_{3}$ & $k_{1} = Z^2_{1}$
+then $F_{2,1} = \frac{k_{2}/1}{k_{1}/2} \sim F_{2,1}$
 
 *********************************************************************************
 
@@ -173,8 +186,19 @@ length(which(mk < .5 | mk > 2))/10000
 **Answer:**
 
 ```{r 5}
-pbinom(10,35,.23,lower.tail=F)
-1 - pnorm(.9841,0,1)
+p <- .23
+q <- (1-p)
+n <- 35
+
+# calculating mean and variences.
+mu <- n*p
+v <- n*p*q
+
+pbinom(11,n,p,lower.tail = F)
+
+# Continuity corection
+pnorm((11.5-mu)/(sqrt(v)),0,1,lower.tail =F)
+
 ```
 
 
@@ -207,9 +231,14 @@ pbinom(10,35,.23,lower.tail=F)
 
 **Answer:**
 
-For probability .1
+$P(\bar{Y} < 120) = .1$
+$P(\bar{Y}/n < 120/n) = .1$
+$P(Z < \frac{\frac{120}{n} - 2.5}{2\sqrt{n}}) = .1$
 ```{r 8}
-qnorm(.1,0,1)
+abs(qnorm(.1,0,1))
 ```
+For probability .1, the standardized z value for .1 is 1.28 so now we can rewrite the probability as $\frac{\frac{120}{n} - 2.5}{2\sqrt{n}} = 1.28$
+Now, solving for n (using wolfram) we get:
+$ 55.6 \approx 56 $
 
 *********************************************************************************
