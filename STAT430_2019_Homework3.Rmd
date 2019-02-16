@@ -121,12 +121,13 @@ pnorm(z, 0, 1, lower.tail = F)
 
 Let $Z_{1}=\frac{Y_{1}-1}{1}$, $Z_{2}=\frac{Y_{2}-2}{2}$, & $Z_{3}=\frac{Y_{3}-3}{3}$
 So, $Z_{1}, Z_{2}, Z_{3} \sim N(0,1)$ and iid
+
 ## part (a)
 Let $w = (Z_{1}^2 + Z_{2}^2 + Z_{3}^2) \sim X^2_{3}$
 
 ## part (b)
 let $k = Z_{1}^2 + Z_{2}^2 \sim X^2_{2}$
-Now our t distribution is: $\frac{Z_{3}}{\sqrt{k/2}} \sim t_{2}$\
+Now our t distribution is: $\frac{Z_{3}}{\sqrt{k/2}} \sim t_{2}$
 
 ## part (c)
 let $k_{1} = Z^2_{1}$ & $k_{2} = Z^2_{2} + Z^2_{3}$
@@ -209,7 +210,18 @@ pnorm((11.5-mu)/(sqrt(v)),0,1,lower.tail =F)
 *********************************************************************************
 
 **Answer:**
+Show that if $\bar{X} \sim iid$ with mean $= \mu_{1}$ and $V = \sigma^2_{1}$ for $X_{1} ... X_{n}$ & $\bar{Y} \sim iid$ with mean $= \mu_{2}$ and $V = \sigma^2_{2}$ for $Y_{1} ... Y_{n}$ then
+\[\frac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{\sqrt{( \sigma^2_{1} + \sigma^2_{2})/n}}\]
+satisfies theorem 7.4 (CLT)
 
+let $w = \bar{X} - \bar{Y}$, then the expected value of $w$ is: $E[w]=E[\bar{X}]-E[\bar{Y}]=\mu_{1}-\mu_{2}$
+
+The varience of $w$ is: $V[\bar{X}-\bar{Y}] = V[\bar{X}]+V[\bar{Y}] = \sigma^2_{1} + \sigma^2_{2}$
+
+Now, by the CLT:
+\[\frac{(w)-(E[w])}{\sqrt{( V[w])/n}}\]
+which is the same as:
+\[\frac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{\sqrt{( \sigma^2_{1} + \sigma^2_{2})/n}}\]
 
 *********************************************************************************
 
@@ -231,14 +243,13 @@ pnorm((11.5-mu)/(sqrt(v)),0,1,lower.tail =F)
 
 **Answer:**
 
-$P(\bar{Y} < 120) = .1$
-$P(\bar{Y}/n < 120/n) = .1$
-$P(Z < \frac{\frac{120}{n} - 2.5}{2\sqrt{n}}) = .1$
+\[P(\bar{Y} < 120) = .1\]
+\[P(\bar{Y}/n < 120/n) = .1\]
+\[P(Z < \frac{\frac{120}{n} - 2.5}{2\sqrt{n}}) = .1\]
 ```{r 8}
 abs(qnorm(.1,0,1))
 ```
 For probability .1, the standardized z value for .1 is 1.28 so now we can rewrite the probability as $\frac{\frac{120}{n} - 2.5}{2\sqrt{n}} = 1.28$
-Now, solving for n (using wolfram) we get:
-$ 55.6 \approx 56 $
+Now, solving for n (using wolfram) we get: $55.6 \approx 56$
 
 *********************************************************************************
